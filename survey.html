@@ -10,9 +10,21 @@
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Accessibility Controls (same as index.html) -->
+    <!-- Accessibility Controls -->
     <div class="accessibility-controls" role="region" aria-label="Accessibility controls">
-        <!-- Same controls as index.html -->
+        <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">
+            High Contrast
+        </button>
+        <div class="font-size-controls">
+            <button onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
+            <button onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
+        </div>
+        <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
+            Dyslexic Mode
+        </button>
+        <button onclick="toggleTextToSpeech()" aria-label="Enable text-to-speech">
+            Text-to-Speech
+        </button>
     </div>
 
     <header role="banner">
@@ -42,8 +54,6 @@
                 </div>
             </div>
 
-            <!-- Additional sections will be shown/hidden based on the selection above -->
-            
             <div class="form-navigation">
                 <button type="button" onclick="previousSection()" class="button-hover">Previous</button>
                 <button type="button" onclick="nextSection()" class="button-hover">Next</button>
@@ -100,6 +110,16 @@
                 console.log('Form submitted');
             });
         });
+
+        // Text-to-Speech Functionality
+        function toggleTextToSpeech() {
+            const sections = document.querySelectorAll('.survey-section');
+            sections.forEach(section => {
+                const text = section.innerText;
+                const utterance = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(utterance);
+            });
+        }
     </script>
 </body>
 </html>
