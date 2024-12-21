@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Survey - Making Arts and Culture Accessible</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Basic CSS for layout, to be enhanced for accessibility and design -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #ffbb00; /* Example bright color */
+      color: #000000;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      padding: 1rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0 0.25rem 0;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #ec4d37; /* Example button color */
+      border: none;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #cf3a25;
+    }
+    .section-heading {
+      margin-top: 2rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-bottom: 2px solid #ec4d37;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Making Arts and Culture Accessible</h1>
+  </header>
+
+  <main>
+    <p>Please complete the following questions to help us improve accessibility and inclusion in North East Lincolnshire.</p>
+    
+    <!-- Example of a section -->
+    <div class="section-heading">1. About You</div>
+    <label for="q1">Which best describes your primary reason for taking this survey?</label>
+    <select id="q1" name="q1">
+      <option value="access-needs">I want to share my personal experiences with access needs.</option>
+      <option value="caregiver">I support someone with access needs.</option>
+      <option value="professional">I am a creative or cultural professional.</option>
+      <option value="organization">I represent an organization or community group.</option>
+      <option value="collaborative-artist">I am a collaborative artist or practitioner.</option>
+      <option value="other">Other (please specify)</option>
+    </select>
+    <textarea id="q1-other" name="q1-other" placeholder="If other, please specify..."></textarea>
+    
+    <!-- Add more sections here as needed... -->
+
+    <p>
+      <button>Submit</button>
+    </p>
+  </main>
+
+  <footer>
+    &copy; 2024 Making Arts & Culture Accessible
+  </footer>
+</body>
+</html>
