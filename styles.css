@@ -4,6 +4,7 @@
   --text-color: #333333; /* Dark gray for text */
   --background-color: #ffffff; /* White background */
   --focus-outline: 3px solid #4A90E2; /* Blue outline for focus */
+  --font-size: 16px; /* Base font size */
 }
 
 /* High Contrast Mode Variables */
@@ -13,8 +14,16 @@
   --background-color: #000000; /* Black background */
 }
 
+/* Dyslexic Mode Variables */
+.dyslexic-mode {
+  letter-spacing: 0.1em;
+  word-spacing: 0.3em;
+  line-height: 2;
+}
+
 body {
   font-family: 'Open Sans', Arial, sans-serif;
+  font-size: var(--font-size);
   line-height: 1.6;
   margin: 0;
   padding: 0;
@@ -106,13 +115,6 @@ input, select, textarea {
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
-}
-
-/* Dyslexia-friendly text spacing */
-.dyslexic-mode {
-  letter-spacing: 0.1em;
-  word-spacing: 0.3em;
-  line-height: 2;
 }
 
 /* Animation classes (with reduced motion preference support) */
