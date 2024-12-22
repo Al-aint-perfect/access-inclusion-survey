@@ -11,30 +11,6 @@
   --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-/* High Contrast Theme */
-[data-theme="high-contrast"] {
-  --primary-color: #000000;
-  --secondary-color: #ffffff;
-  --text-color: #ffffff;
-  --background-color: #000000;
-  --border-color: #ffffff;
-}
-
-/* Dyslexic Theme */
-[data-theme="dyslexic"] {
-  font-family: 'OpenDyslexic', Arial, sans-serif;
-  line-height: 1.8;
-  word-spacing: 0.16em;
-  letter-spacing: 0.12em;
-}
-
-/* Global Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
