@@ -109,12 +109,21 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.start-button {
+#startSurveyButton {
     font-size: 1.2rem;
     padding: 1rem 2rem;
     margin: 2rem auto;
     display: block;
-    width: auto;
+    background-color: var(--primary-pink);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#startSurveyButton:hover {
+    background-color: var(--dark-pink);
 }
 
 .footer {
