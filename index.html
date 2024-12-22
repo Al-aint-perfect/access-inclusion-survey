@@ -77,34 +77,97 @@
         </section>
 
         <!-- Section 2B: For Caregivers and Family Members -->
-        <section id="section2B" class="survey-section">
-            <!-- Similar structure for Section 2B questions -->
-            <!-- Q2-Q5 for caregivers -->
-            <div class="button-group">
+<section id="section2B" class="survey-section">
+    <div class="question">
+        <h3>Q2. What access needs does the person you support have?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="question">
+        <h3>Q3. What positive experiences have you had when supporting someone to access arts and cultural activities?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="question">
+        <h3>Q4. What challenges have you encountered when supporting someone to access arts and cultural activities?</h3>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="supporterChallenges" value="physical"> Physical barriers</label>
+            <label><input type="checkbox" name="supporterChallenges" value="communication"> Communication barriers</label>
+            <label><input type="checkbox" name="supporterChallenges" value="social"> Social barriers</label>
+            <label><input type="checkbox" name="supporterChallenges" value="financial"> Financial barriers</label>
+            <label><input type="checkbox" name="supporterChallenges" value="other"> Other</label>
+            <textarea id="otherSupporterChallenges" placeholder="Please specify other challenges" style="display: none;"></textarea>
+        </div>
+    </div>
+    <div class="question">
+        <h3>Q5. What support or adjustments would make it easier for you to assist the person you care for in participating?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="button-group">
         <button onclick="previousSection()">Back</button>
         <button onclick="nextSection()">Next</button>
     </div>
-        </section>
+</section>
 
         <!-- Section 2C: For Creative and Cultural Professionals -->
-        <section id="section2C" class="survey-section">
-            <!-- Similar structure for Section 2C questions -->
-            <!-- Q2-Q5 for professionals -->
-            <div class="button-group">
+<section id="section2C" class="survey-section">
+    <div class="question">
+        <h3>Q2. In your professional role, what experience do you have with accessibility and inclusion?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="question">
+        <h3>Q3. What successful accessibility initiatives have you implemented or witnessed in your work?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="question">
+        <h3>Q4. What challenges have you faced in making arts and cultural activities more accessible?</h3>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="professionalChallenges" value="resources"> Limited resources</label>
+            <label><input type="checkbox" name="professionalChallenges" value="training"> Lack of training</label>
+            <label><input type="checkbox" name="professionalChallenges" value="infrastructure"> Infrastructure limitations</label>
+            <label><input type="checkbox" name="professionalChallenges" value="awareness"> Awareness gaps</label>
+            <label><input type="checkbox" name="professionalChallenges" value="other"> Other</label>
+            <textarea id="otherProfessionalChallenges" placeholder="Please specify other challenges" style="display: none;"></textarea>
+        </div>
+    </div>
+    <div class="question">
+        <h3>Q5. What support would help you better incorporate accessibility in your work?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="button-group">
         <button onclick="previousSection()">Back</button>
         <button onclick="nextSection()">Next</button>
     </div>
-        </section>
+</section>
 
         <!-- Section 2D: For Organizations and Community Groups -->
-        <section id="section2D" class="survey-section">
-            <!-- Similar structure for Section 2D questions -->
-            <!-- Q2-Q5 for organizations -->
-            <div class="button-group">
+<section id="section2D" class="survey-section">
+    <div class="question">
+        <h3>Q2. How does your organization currently address accessibility and inclusion?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="question">
+        <h3>Q3. What successful accessibility initiatives has your organization implemented?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="question">
+        <h3>Q4. What challenges has your organization faced in implementing accessibility measures?</h3>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="organizationChallenges" value="budget"> Budget constraints</label>
+            <label><input type="checkbox" name="organizationChallenges" value="expertise"> Lack of expertise</label>
+            <label><input type="checkbox" name="organizationChallenges" value="facilities"> Facility limitations</label>
+            <label><input type="checkbox" name="organizationChallenges" value="policy"> Policy barriers</label>
+            <label><input type="checkbox" name="organizationChallenges" value="other"> Other</label>
+            <textarea id="otherOrganizationChallenges" placeholder="Please specify other challenges" style="display: none;"></textarea>
+        </div>
+    </div>
+    <div class="question">
+        <h3>Q5. What resources would help your organization improve its accessibility?</h3>
+        <textarea required rows="4"></textarea>
+    </div>
+    <div class="button-group">
         <button onclick="previousSection()">Back</button>
         <button onclick="nextSection()">Next</button>
     </div>
-        </section>
+</section>
         <!-- Section 3: General Questions for All Respondents -->
         <section id="section3" class="survey-section">
             <div class="question">
