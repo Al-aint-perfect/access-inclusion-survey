@@ -12,17 +12,20 @@
 
     <!-- Accessibility Controls -->
     <div class="accessibility-controls" role="region" aria-label="Accessibility controls">
-    <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">
-        High Contrast
-    </button>
-    <div class="font-size-controls">
-        <button onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
-        <button onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
+        <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">
+            High Contrast
+        </button>
+        <div class="font-size-controls">
+            <button onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
+            <button onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
+        </div>
+        <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
+            Dyslexic Mode
+        </button>
+        <button onclick="toggleTextToSpeech()" aria-label="Enable text-to-speech">
+            Text-to-Speech
+        </button>
     </div>
-    <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
-        Dyslexic Mode
-    </button>
-</div>
 
     <header role="banner">
         <h1>Making Arts and Culture Accessible</h1>
@@ -108,37 +111,15 @@
             });
         });
 
-        <script>
-    // High Contrast Mode
-    function toggleHighContrast() {
-        const body = document.body;
-        if (body.hasAttribute('data-theme')) {
-            body.removeAttribute('data-theme');
-        } else {
-            body.setAttribute('data-theme', 'high-contrast');
+        // Text-to-Speech Functionality
+        function toggleTextToSpeech() {
+            const sections = document.querySelectorAll('.survey-section');
+            sections.forEach(section => {
+                const text = section.innerText;
+                const utterance = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(utterance);
+            });
         }
-    }
-
-    // Dyslexic-Friendly Mode
-    function toggleDyslexicMode() {
-        const body = document.body;
-        if (body.classList.contains('dyslexic-mode')) {
-            body.classList.remove('dyslexic-mode');
-        } else {
-            body.classList.add('dyslexic-mode');
-        }
-    }
-
-    // Font Size Adjustment
-    function adjustFontSize(action) {
-        const root = document.documentElement;
-        const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--font-size'));
-        if (action === 'increase') {
-            root.style.setProperty('--font-size', `${currentSize + 2}px`);
-        } else if (action === 'decrease') {
-            root.style.setProperty('--font-size', `${currentSize - 2}px`);
-        }
-    }
-</script>
+    </script>
 </body>
 </html>
