@@ -159,19 +159,26 @@ input[type="checkbox"] {
 
 /* Buttons */
 .button {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .button:hover {
-  background-color: darken(var(--primary-color), 10%);
+    background-color: #e660a0; /* Darker shade of pink */
+    color: white; /* Ensure text stays white on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.button:active {
+    transform: translateY(0);
 }
 
 .button:focus {
@@ -203,21 +210,31 @@ input[type="checkbox"] {
 
 /* Accessibility Features */
 .accessibility-controls {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  z-index: 100;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .accessibility-button {
-  padding: 0.5rem;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    padding: 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.accessibility-button:hover {
+    background-color: #e660a0;
+    transform: translateY(-2px);
 }
 
 /* Animations */
