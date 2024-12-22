@@ -228,7 +228,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('gender')?.addEventListener('change', handleGenderChange);
     document.getElementById('ethnicity')?.addEventListener('change', handleEthnicityChange);
     document.getElementById('location')?.addEventListener('change', handleLocationChange);
-    
+    document.querySelectorAll('input[name="supporterChallenges"][value="other"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+    document.getElementById('otherSupporterChallenges').style.display = this.checked ? 'block' : 'none';
+    });
+});
+
+document.querySelectorAll('input[name="professionalChallenges"][value="other"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        document.getElementById('otherProfessionalChallenges').style.display = this.checked ? 'block' : 'none';
+    });
+});
+
+document.querySelectorAll('input[name="organizationChallenges"][value="other"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        document.getElementById('otherOrganizationChallenges').style.display = this.checked ? 'block' : 'none';
+    });
+});
     // Initialize the first section
     updateSection();
 });
