@@ -9,17 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Skip Link for Accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Accessibility Controls -->
-   <div class="accessibility-controls">
-    <button class="accessibility-button" id="text-size-toggle" aria-label="Toggle text size">
-        <span class="sr-only">Larger Text</span>
+pan>
         A+
     </button>
-</div>
-
+</div
     <header>
         <div class="container">
             <h1>Making Arts and Culture Accessible for Everyone</h1>
@@ -376,11 +369,6 @@
                 }
             });
 
-            // Accessibility features
-            document.getElementById('contrast-toggle').addEventListener('click', toggleHighContrast);
-            document.getElementById('font-toggle').addEventListener('click', toggleDyslexicFont);
-            document.getElementById('text-size-toggle').addEventListener('click', toggleTextSize);
-
             // Helper functions
             function showSection(index) {
                 sections.forEach((section, i) => {
@@ -461,21 +449,6 @@
                 };
                 return mapping[value] || 'a';
             }
-
-            // Accessibility toggle functions
-            function toggleHighContrast() {
-                document.body.classList.toggle('high-contrast');
-            }
-
-            function toggleDyslexicFont() {
-                document.body.classList.toggle('dyslexic-font');
-            }
-
-            function toggleTextSize() {
-                document.body.classList.toggle('large-text');
-            }
-        });
-    </script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Get all necessary elements
@@ -511,16 +484,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showSection(currentSection);
             updateProgress();
         });
-    });
-
-    // Accessibility Controls
-    const textSizeToggle = document.getElementById('text-size-toggle')
-    textSizeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('large-text');
-        // Save preference
-        localStorage.setItem('large-text', document.body.classList.contains('large-text'));
-    });
-
+      
     // Helper Functions
     function showSection(index) {
         sections.forEach((section, i) => {
@@ -677,27 +641,12 @@ document.addEventListener('DOMContentLoaded', function() {
             errorDiv.textContent = 'This field is required';
             errorDiv.style.color = 'red';
         }
-    }
 
     function clearFieldError(field) {
         const errorDiv = document.getElementById(`${field.id}-error`);
         if (errorDiv) {
             errorDiv.textContent = '';
         }
-    }
-
-    // Accessibility Controls
-    const textSizeToggle = document.getElementById('text-size-toggle');
-    textSizeToggle?.addEventListener('click', function() {
-        document.body.classList.toggle('large-text');
-        localStorage.setItem('large-text', document.body.classList.contains('large-text'));
-    });
-
-    // Load saved preferences
-    if (localStorage.getItem('large-text') === 'true') {
-        document.body.classList.add('large-text');
-    }
-});
 </script>
         </body>
 </html>
