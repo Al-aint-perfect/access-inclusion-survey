@@ -299,6 +299,223 @@
         <section id="section5" class="survey-section">
             <!-- Continue with Q14 and contact preferences -->
         </section>
+    <!-- General Questions Section -->
+        <section id="section3" class="survey-section">
+            <div class="question">
+                <h3>Q6. How well do arts and cultural activities in North East Lincolnshire meet access needs?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="rating" value="1" required>1 (Very poorly)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="rating" value="2">2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="rating" value="3">3
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="rating" value="4">4
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="rating" value="5">5 (Very well)
+                    </label>
+                </div>
+            </div>
+            <div class="question">
+                <h3>Q7. What specific improvements would you like to see?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="improvements" value="training">
+                        More staff training on accessibility and inclusion
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="improvements" value="physical">
+                        Improved physical access
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="improvements" value="communication">
+                        Better communication support
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="improvements" value="programming">
+                        More inclusive programming
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="improvements" value="awareness">
+                        Greater community awareness of access needs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="improvements" value="other">
+                        Other (please specify):
+                        <input type="text" class="other-text">
+                    </label>
+                </div>
+            </div>
+            <div class="question">
+                <h3>Q8. What would make arts and cultural activities more accessible?</h3>
+                <textarea required></textarea>
+            </div>
+            <div class="button-group">
+                <button onclick="previousSection()">Back</button>
+                <button onclick="nextSection()">Next</button>
+            </div>
+        </section>
+
+        <!-- Demographics Section -->
+        <section id="section4" class="survey-section">
+            <div class="question">
+                <h3>Q9. What is your age range?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="age" value="under18" required>Under 18
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="18-24">18-24
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="25-34">25-34
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="35-44">35-44
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="45-54">45-54
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="55-64">55-64
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="65+">65+
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="age" value="prefer-not-say">Prefer not to say
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Q10. What is your gender?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="gender" value="male" required>Male
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="gender" value="female">Female
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="gender" value="non-binary">Non-binary
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="gender" value="prefer-not-say">Prefer not to say
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="gender" value="self-describe">Prefer to self-describe:
+                        <input type="text" class="other-text">
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Q11. What is your ethnicity?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="ethnicity" value="white" required>White
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ethnicity" value="mixed">Mixed/Multiple ethnic groups
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ethnicity" value="asian">Asian/Asian British
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ethnicity" value="black">Black/Black British
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ethnicity" value="other">Other (please specify):
+                        <input type="text" class="other-text">
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ethnicity" value="prefer-not-say">Prefer not to say
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Q12. Where in North East Lincolnshire are you based?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="location" value="grimsby" required>Grimsby
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="location" value="cleethorpes">Cleethorpes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="location" value="immingham">Immingham
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="location" value="other">Other (please specify):
+                        <input type="text" class="other-text">
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Q13. Do you identify as a person with a disability or access needs?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="disability" value="yes" required>Yes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="disability" value="no">No
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="disability" value="prefer-not-say">Prefer not to say
+                    </label>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="previousSection()">Back</button>
+                <button onclick="nextSection()">Next</button>
+            </div>
+        </section>
+
+        <!-- Final Thoughts Section -->
+        <section id="section5" class="survey-section">
+            <div class="question">
+                <h3>Q14. Is there anything else you'd like to share?</h3>
+                <textarea></textarea>
+            </div>
+            <div class="question">
+                <h3>Q14a. Do you want to be contacted about how your information is being used?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="contact_usage" value="yes" required>Yes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="contact_usage" value="no">No
+                    </label>
+                </div>
+            </div>
+            <div class="question">
+                <h3>Q14b. Do you want to be contacted about future training opportunities?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="contact_training" value="yes" required>Yes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="contact_training" value="no">No
+                    </label>
+                </div>
+            </div>
+            <div class="question" id="email-section">
+                <h3>Q14c. If you answered yes to either of the above, please provide your email:</h3>
+                <input type="email" id="email" class="email-input">
+            </div>
+            <div class="button-group">
+                <button onclick="previousSection()">Back</button>
+                <button onclick="submitSurvey()">Submit Survey</button>
+            </div>
+        </section>
     </div>
 
     <footer>
