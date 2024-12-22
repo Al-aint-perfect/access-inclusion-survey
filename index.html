@@ -40,15 +40,36 @@
     </footer>
 
     <script>
-        // Text-to-Speech Functionality
-        function toggleTextToSpeech() {
-            const sections = document.querySelectorAll('main, header, footer'); // Adjusted to read all main content
-            sections.forEach(section => {
-                const text = section.innerText;
-                const utterance = new SpeechSynthesisUtterance(text);
-                speechSynthesis.speak(utterance);
-            });
+     <script>
+    // High Contrast Mode
+    function toggleHighContrast() {
+        const body = document.body;
+        if (body.hasAttribute('data-theme')) {
+            body.removeAttribute('data-theme');
+        } else {
+            body.setAttribute('data-theme', 'high-contrast');
         }
-    </script>
+    }
+
+    // Dyslexic-Friendly Mode
+    function toggleDyslexicMode() {
+        const body = document.body;
+        if (body.classList.contains('dyslexic-mode')) {
+            body.classList.remove('dyslexic-mode');
+        } else {
+            body.classList.add('dyslexic-mode');
+        }
+    }
+
+    // Text-to-Speech Functionality
+    function toggleTextToSpeech() {
+        const sections = document.querySelectorAll('main, header, footer');
+        sections.forEach(section => {
+            const text = section.innerText;
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utterance);
+        });
+    }
+</script>
 </body>
 </html>
