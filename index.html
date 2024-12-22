@@ -49,6 +49,6 @@ main {
   margin-left: 1em;
 }
 
-/* Dyslexia-friendly font example (optional).
-   Include a link to a Dyslexia-friendly font if you'd like to embed it. */
-</style> </head> <body> <header> <img src="YOUR-FESTIVAL-LOGO.png" alt="Festival Logo" style="max-height: 60px;" /> <h1>Making Arts and Culture Accessible for Everyone</h1> <!-- Optional background music toggle --> <button id="music-toggle" class="contrast-toggle"> Toggle Music </button> </header> <main> <p>Welcome to the survey! We appreciate your time and feedback.</p> <button class="button" onclick="window.location.href='survey.html'"> Take Survey </button> </main> <!-- Script for background music (use a short, subtle clip) --> <audio id="bg-music" loop> <source src="YOUR-MUSIC-FILE.mp3" type="audio/mpeg" /> <!-- Provide alternative formats if possible --> </audio> <script> // Default music is paused. Let user toggle ON if they choose. const music = document.getElementById("bg-music"); const musicToggle = document.getElementById("music-toggle"); let isPlaying = false; musicToggle.addEventListener("click", () => { if (isPlaying) { music.pause(); isPlaying = false; musicToggle.textContent = "Play Music"; } else { music.play(); isPlaying = true; musicToggle.textContent = "Pause Music"; } }); </script> </body> </html>
+ </script>
+ </body> 
+</html>
