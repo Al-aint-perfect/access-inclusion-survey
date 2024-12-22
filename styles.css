@@ -1,6 +1,6 @@
 /* Base styles */
 :root {
-  --primary-color: #ff69b4; /* Pink color for buttons and highlights */
+  --primary-color: #ff69b4; /* Pink color for header, footer, and buttons */
   --text-color: #333333; /* Dark gray for text */
   --background-color: #ffffff; /* White background */
   --focus-outline: 3px solid #4A90E2; /* Blue outline for focus */
