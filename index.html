@@ -3,71 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - Making Arts and Culture Accessible</title>
+    <title>Making Arts and Culture Accessible Survey</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to main content link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Accessibility Controls -->
     <div class="accessibility-controls" role="region" aria-label="Accessibility controls">
-    <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">
-        High Contrast
-    </button>
-    <div class="font-size-controls">
-        <button onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
-        <button onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
+        <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">
+            High Contrast
+        </button>
+        <div class="font-size-controls">
+            <button onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
+            <button onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
+        </div>
+        <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
+            Dyslexic Mode
+        </button>
     </div>
-    <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
-        Dyslexic Mode
-    </button>
-</div>
 
     <header role="banner">
-        <h1>Welcome to the Survey</h1>
+        <h1>Making Arts and Culture Accessible for Everyone</h1>
     </header>
 
     <main id="main-content" role="main">
-        <p>Welcome to our survey on making arts and culture more accessible. Click "Start Survey" to begin.</p>
-        <a href="survey.html" class="button-hover">Start Survey</a>
+        <div class="welcome-section fade-in">
+            <h2>Welcome to the Survey</h2>
+            <p>We want to hear your thoughts and experiences about accessibility and inclusion within the arts and cultural activities in North East Lincolnshire.</p>
+
+            <a href="survey.html" class="start-survey-button button-hover" role="button">
+                Start Survey
+            </a>
+        </div>
     </main>
 
     <footer role="contentinfo">
         <p>&copy; 2024 Making Arts & Culture Accessible</p>
     </footer>
 
+    <!-- Add JavaScript for accessibility features -->
     <script>
-     <script>
-    // High Contrast Mode
-    function toggleHighContrast() {
-        const body = document.body;
-        if (body.hasAttribute('data-theme')) {
-            body.removeAttribute('data-theme');
-        } else {
-            body.setAttribute('data-theme', 'high-contrast');
+        // High Contrast Toggle
+        function toggleHighContrast() {
+            document.body.dataset.theme = 
+                document.body.dataset.theme === 'high-contrast' ? '' : 'high-contrast';
         }
-    }
 
-    // Dyslexic-Friendly Mode
-    function toggleDyslexicMode() {
-        const body = document.body;
-        if (body.classList.contains('dyslexic-mode')) {
-            body.classList.remove('dyslexic-mode');
-        } else {
-            body.classList.add('dyslexic-mode');
+        // Font Size Adjustment
+        function adjustFontSize(action) {
+            const body = document.body;
+            const currentSize = parseFloat(getComputedStyle(body).fontSize);
+            const newSize = action === 'increase' ? currentSize * 1.1 : currentSize * 0.9;
+            body.style.fontSize = `${newSize}px`;
         }
-    }
 
-    // Font Size Adjustment
-    function adjustFontSize(action) {
-        const root = document.documentElement;
-        const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--font-size'));
-        if (action === 'increase') {
-            root.style.setProperty('--font-size', `${currentSize + 2}px`);
-        } else if (action === 'decrease') {
-            root.style.setProperty('--font-size', `${currentSize - 2}px`);
+        // Dyslexic Mode Toggle
+        function toggleDyslexicMode() {
+            document.body.classList.toggle('dyslexic-mode');
         }
-    }
-</script>
+    </script>
 </body>
 </html>
