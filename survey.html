@@ -42,13 +42,13 @@
         </div>
 
         <form id="survey-form" class="survey-form" novalidate>
-            <!-- Introduction Section -->
-            <section id="intro-section" class="survey-section fade-in">
+           <!-- Introduction Section -->
+            <section id="intro-section" class="survey-section">
                 <h2>Welcome to the Survey</h2>
                 <p>Thank you for taking part in this survey. Your feedback will help shape a new training program to improve access and inclusion in our community.</p>
                 <p>This survey should take around 3-5 minutes to complete.</p>
                 <div class="form-group">
-                    <label for="consent">
+                    <label for="consent" class="checkbox-label">
                         <input type="checkbox" id="consent" name="consent" required>
                         I understand that my responses will remain anonymous and will only be used to improve accessibility and inclusion in arts and cultural activities in our area.
                     </label>
@@ -57,6 +57,10 @@
                 <button type="button" class="button" id="start-survey">Begin Survey</button>
             </section>
 
+<!-- Section 1: About You -->
+<section id="section-1" class="survey-section" hidden>
+    <!-- Rest of section 1 content -->
+</section>
             <!-- Section 1: About You -->
             <section id="section-1" class="survey-section" hidden>
                 <h2>Section 1: About You</h2>
@@ -631,5 +635,126 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize variables
+    const form = document.getElementById('survey-form');
+    const sections = Array.from(document.querySelectorAll('.survey-section'));
+    const startButton = document.getElementById('start-survey');
+    let currentSection = 0;
+
+    // Hide all sections except the first one
+    sections.forEach((section, index) => {
+        if (index !== 0) {
+            section.hidden = true;
+        }
+    });
+
+    // Start Survey Button Handler
+    startButton.addEventListener('click', function() {
+        console.log('Start button clicked'); // Debug line
+        const consentCheckbox = document.getElementById('consent');
+        
+        if (consentCheckbox.checked) {
+            document.getElementById('intro-section').hidden = true;
+            document.getElementById('section-1').hidden = false;
+            currentSection = 1;
+            updateProgress();
+            window.scrollTo(0, 0);
+        } else {
+            const errorDiv = document.getElementById('consent-error');
+            errorDiv.textContent = 'Please check the consent box to continue';
+            errorDiv.style.color = 'red';
+        }
+    });
+
+    // Navigation Buttons Handler
+    document.querySelectorAll('[data-direction]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const direction = e.target.dataset.direction;
+            if (direction === 'next' && validateSection(sections[currentSection])) {
+                currentSection++;
+            } else if (direction === 'prev') {
+                currentSection--;
+            }
+            showSection(currentSection);
+            updateProgress();
+        });
+    });
+
+    // Helper Functions
+    function showSection(index) {
+        sections.forEach((section, i) => {
+            section.hidden = i !== index;
+        });
+        window.scrollTo(0, 0);
+    }
+
+    function updateProgress() {
+        const progress = ((currentSection + 1) / sections.length) * 100;
+        document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
+    }
+
+    function validateSection(section) {
+        let isValid = true;
+        const requiredFields = section.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                showFieldError(field);
+            } else {
+                clearFieldError(field);
+            }
+        });
+        return isValid;
+    }
+
+    function showFieldError(field) {
+        const errorDiv = document.getElementById(`${field.id}-error`);
+        if (errorDiv) {
+            errorDiv.textContent = 'This field is required';
+            errorDiv.style.color = 'red';
+        }
+    }
+
+    function clearFieldError(field) {
+        const errorDiv = document.getElementById(`${field.id}-error`);
+        if (errorDiv) {
+            errorDiv.textContent = '';
+        }
+    }
+
+    // Accessibility Controls
+    const contrastToggle = document.getElementById('contrast-toggle');
+    const fontToggle = document.getElementById('font-toggle');
+    const textSizeToggle = document.getElementById('text-size-toggle');
+
+    contrastToggle?.addEventListener('click', function() {
+        document.body.classList.toggle('high-contrast');
+        localStorage.setItem('high-contrast', document.body.classList.contains('high-contrast'));
+    });
+
+    fontToggle?.addEventListener('click', function() {
+        document.body.classList.toggle('dyslexic-font');
+        localStorage.setItem('dyslexic-font', document.body.classList.contains('dyslexic-font'));
+    });
+
+    textSizeToggle?.addEventListener('click', function() {
+        document.body.classList.toggle('large-text');
+        localStorage.setItem('large-text', document.body.classList.contains('large-text'));
+    });
+
+    // Load saved preferences
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+    }
+    if (localStorage.getItem('dyslexic-font') === 'true') {
+        document.body.classList.add('dyslexic-font');
+    }
+    if (localStorage.getItem('large-text') === 'true') {
+        document.body.classList.add('large-text');
+    }
+});
+</script>
+        </body>
 </html>
