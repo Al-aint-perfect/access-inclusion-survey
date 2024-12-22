@@ -12,8 +12,50 @@ function startSurvey() {
 function nextSection() {
     if (validateCurrentSection()) {
         saveCurrentSectionData();
-        currentSection++;
-        updateSection();
+
+        const currentSectionElement = sections[currentSection];
+
+        // Branching Right After Section 1
+        if (currentSectionElement.id === 'section1') {
+            // Hide Section 1
+            currentSectionElement.classList.remove('active');
+
+            // Show the chosen Section 2 variant based on Q1 answer
+            const branchSectionId = surveyData.nextSection;
+            document.getElementById(branchSectionId).classList.add('active');
+
+            // Update currentSection index to match the branch section
+            currentSection = Array.from(sections).findIndex(
+                (section) => section.id === branchSectionId
+            );
+        } 
+        // After Section 2A, 2B, 2C, 2D, converge on Section 3
+        else if (
+            currentSectionElement.id === 'section2A' ||
+            currentSectionElement.id === 'section2B' ||
+            currentSectionElement.id === 'section2C' ||
+            currentSectionElement.id === 'section2D'
+        ) {
+            // Hide the current Section 2 variant
+            currentSectionElement.classList.remove('active');
+
+            // Show Section 3
+            document.getElementById('section3').classList.add('active');
+
+            // Update currentSection index to Section 3
+            currentSection = Array.from(sections).findIndex(
+                (section) => section.id === 'section3'
+            );
+        } 
+        // Normal progression for all other sections
+        else {
+            currentSection++;
+            updateSection();
+        }
+
+        // Update progress bar
+        const progress = (currentSection / (sections.length - 1)) * 100;
+        document.getElementById('progressBar').style.width = `${progress}%`;
     }
 }
 
@@ -68,20 +110,28 @@ function handlePrimaryReasonChange() {
     const reason = document.getElementById('primaryReason').value;
     surveyData.primaryReason = reason;
 
-    // Set up next section based on selection
+    // Hide all Section 2 variants initially
+    document.getElementById('section2A').classList.remove('active');
+    document.getElementById('section2B').classList.remove('active');
+    document.getElementById('section2C').classList.remove('active');
+    document.getElementById('section2D').classList.remove('active');
+
+    // Set the ID of the Section 2 variant to show next
     switch(reason) {
         case 'personal':
-            surveyData.branchSection = '2A';
+            surveyData.nextSection = 'section2A';
             break;
         case 'supporter':
-            surveyData.branchSection = '2B';
+            surveyData.nextSection = 'section2B';
             break;
         case 'professional':
-            surveyData.branchSection = '2C';
+            surveyData.nextSection = 'section2C';
             break;
         case 'organization':
-            surveyData.branchSection = '2D';
+            surveyData.nextSection = 'section2D';
             break;
+        default:
+            surveyData.nextSection = 'section2A'; // fallback if not selected
     }
 }
 
