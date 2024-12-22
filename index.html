@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Making Arts and Culture Accessible Survey</title>
+    <title>Welcome - Making Arts and Culture Accessible</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Skip to main content link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Accessibility Controls -->
@@ -23,46 +21,33 @@
         <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
             Dyslexic Mode
         </button>
+        <button onclick="toggleTextToSpeech()" aria-label="Enable text-to-speech">
+            Text-to-Speech
+        </button>
     </div>
 
     <header role="banner">
-        <h1>Making Arts and Culture Accessible for Everyone</h1>
+        <h1>Welcome to the Survey</h1>
     </header>
 
     <main id="main-content" role="main">
-        <div class="welcome-section fade-in">
-            <h2>Welcome to the Survey</h2>
-            <p>We want to hear your thoughts and experiences about accessibility and inclusion within the arts and cultural activities in North East Lincolnshire.</p>
-
-            <a href="survey.html" class="start-survey-button button-hover" role="button">
-                Start Survey
-            </a>
-        </div>
+        <p>Welcome to our survey on making arts and culture more accessible. Click "Start Survey" to begin.</p>
+        <a href="survey.html" class="button-hover">Start Survey</a>
     </main>
 
     <footer role="contentinfo">
         <p>&copy; 2024 Making Arts & Culture Accessible</p>
     </footer>
 
-    <!-- Add JavaScript for accessibility features -->
     <script>
-        // High Contrast Toggle
-        function toggleHighContrast() {
-            document.body.dataset.theme = 
-                document.body.dataset.theme === 'high-contrast' ? '' : 'high-contrast';
-        }
-
-        // Font Size Adjustment
-        function adjustFontSize(action) {
-            const body = document.body;
-            const currentSize = parseFloat(getComputedStyle(body).fontSize);
-            const newSize = action === 'increase' ? currentSize * 1.1 : currentSize * 0.9;
-            body.style.fontSize = `${newSize}px`;
-        }
-
-        // Dyslexic Mode Toggle
-        function toggleDyslexicMode() {
-            document.body.classList.toggle('dyslexic-mode');
+        // Text-to-Speech Functionality
+        function toggleTextToSpeech() {
+            const sections = document.querySelectorAll('main, header, footer'); // Adjusted to read all main content
+            sections.forEach(section => {
+                const text = section.innerText;
+                const utterance = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(utterance);
+            });
         }
     </script>
 </body>
