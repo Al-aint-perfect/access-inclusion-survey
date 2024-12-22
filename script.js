@@ -1,169 +1,184 @@
 let currentSection = 0;
 const sections = document.querySelectorAll('.survey-section');
-let userPath = '';
+let surveyData = {};
 
-function updateProgress() {
-    const progress = document.getElementById('progress');
-    const percentage = (currentSection / (sections.length - 1)) * 100;
-    progress.style.width = `${percentage}%`;
-}
-
-function showSection(index) {
-    sections.forEach(section => section.classList.remove('active'));
-    sections[index].classList.add('active');
-    updateProgress();
-}
-
+// Initialize the survey
 function startSurvey() {
     currentSection = 1;
-    showSection(currentSection);
+    updateSection();
+}
+
+// Handle navigation between sections
+function nextSection() {
+    if (validateCurrentSection()) {
+        saveCurrentSectionData();
+        currentSection++;
+        updateSection();
+    }
 }
 
 function previousSection() {
-    if (currentSection > 0) {
-        currentSection--;
-        showSection(currentSection);
-    }
+    currentSection--;
+    updateSection();
 }
 
-function nextSection() {
+// Update visible section and progress bar
+function updateSection() {
+    sections.forEach((section, index) => {
+        section.classList.remove('active');
+        if (index === currentSection) {
+            section.classList.add('active');
+        }
+    });
+
+    // Update progress bar
+    const progress = (currentSection / (sections.length - 1)) * 100;
+    document.getElementById('progressBar').style.width = `${progress}%`;
+
+    // Handle button visibility
+    const buttonGroups = document.querySelectorAll('.button-group');
+    buttonGroups.forEach(group => {
+        const backButton = group.querySelector('button:first-child');
+        if (backButton) {
+            backButton.style.visibility = currentSection === 0 ? 'hidden' : 'visible';
+        }
+    });
+}
+
+// Validate current section before proceeding
+function validateCurrentSection() {
     const currentSectionElement = sections[currentSection];
-    
-    // Validate required fields
-    const requiredFields = currentSectionElement.querySelectorAll('input[required], textarea[required]');
-    let isValid = true;
-    
-    requiredFields.forEach(field => {
-        if (field.type === 'radio') {
-            const name = field.name;
-            const checked = currentSectionElement.querySelector(`input[name="${name}"]:checked`);
-            if (!checked) {
-                isValid = false;
-                showError(field, 'Please select an option');
-            }
-        } else if (!field.value.trim()) {
-            isValid = false;
-            showError(field, 'This field is required');
-        }
-    });
-
-    if (!isValid) return;
-
-    // Handle branching logic based on Q1 response
-    if (currentSection === 1) {
-        const selectedOption = document.querySelector('input[name="primary_reason"]:checked').value;
-        switch(selectedOption) {
-            case 'personal':
-                userPath = '2a';
-                currentSection = 2;
-                break;
-            case 'supporter':
-                userPath = '2b';
-                currentSection = 3;
-                break;
-            case 'professional':
-                userPath = '2c';
-                currentSection = 4;
-                break;
-            case 'organization':
-                userPath = '2d';
-                currentSection = 5;
-                break;
-            case 'collaborative':
-                userPath = '2e';
-                currentSection = 6;
-                break;
-        }
-    } else {
-        currentSection++;
-    }
-
-    if (currentSection < sections.length) {
-        showSection(currentSection);
-    }
-}
-
-function showError(element, message) {
-    // Remove any existing error messages
-    const existingError = element.parentElement.querySelector('.error-message');
-    if (existingError) {
-        existingError.remove();
-    }
-
-    // Create and add new error message
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    element.parentElement.appendChild(errorDiv);
-
-    // Remove error message when user interacts with the field
-    element.addEventListener('input', function() {
-        errorDiv.remove();
-    });
-}
-
-function submitSurvey() {
-    // Validate final section
-    const finalSection = sections[sections.length - 1];
-    const requiredFields = finalSection.querySelectorAll('input[required], textarea[required]');
+    const requiredFields = currentSectionElement.querySelectorAll('[required]');
     let isValid = true;
 
     requiredFields.forEach(field => {
-        if (!field.value.trim()) {
+        if (!field.value) {
             isValid = false;
-            showError(field, 'This field is required');
-        }
-    });
-
-    if (!isValid) return;
-
-    // Collect all form data
-    const formData = new FormData();
-    document.querySelectorAll('input, textarea').forEach(element => {
-        if (element.type === 'radio' && element.checked) {
-            formData.append(element.name, element.value);
-        } else if (element.type === 'checkbox' && element.checked) {
-            formData.append(element.name, element.value);
-        } else if (element.type !== 'radio' && element.type !== 'checkbox') {
-            formData.append(element.name, element.value);
-        }
-    });
-
-    // Convert form data to JSON
-    const jsonData = {};
-    formData.forEach((value, key) => {
-        if (jsonData[key]) {
-            if (!Array.isArray(jsonData[key])) {
-                jsonData[key] = [jsonData[key]];
-            }
-            jsonData[key].push(value);
+            field.classList.add('error');
         } else {
-            jsonData[key] = value;
+            field.classList.remove('error');
         }
     });
 
-    // Save to localStorage (temporary storage)
-    const responses = JSON.parse(localStorage.getItem('surveyResponses') || '[]');
-    responses.push(jsonData);
-    localStorage.setItem('surveyResponses', JSON.stringify(responses));
-
-    // Show success message
-    alert('Thank you for completing the survey!');
-    
-    // Reset to beginning
-    currentSection = 0;
-    showSection(currentSection);
+    return isValid;
 }
 
-// Initialize progress bar
-updateProgress();
+// Handle primary reason selection and branching logic
+function handlePrimaryReasonChange() {
+    const reason = document.getElementById('primaryReason').value;
+    surveyData.primaryReason = reason;
 
-// Handle email field visibility
-document.querySelectorAll('input[name="contact_usage"], input[name="contact_training"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-        const emailSection = document.getElementById('email-section');
-        const showEmail = document.querySelector('input[name="contact_usage"][value="yes"]:checked') ||
-                         document.querySelector('input[name="contact_training"][value="yes"]:checked');
-        emailSection.style.display = showEmail ? 'block' : 'none';
+    // Set up next section based on selection
+    switch(reason) {
+        case 'personal':
+            surveyData.branchSection = '2A';
+            break;
+        case 'supporter':
+            surveyData.branchSection = '2B';
+            break;
+        case 'professional':
+            surveyData.branchSection = '2C';
+            break;
+        case 'organization':
+            surveyData.branchSection = '2D';
+            break;
+    }
+}
+
+// Handle conditional fields
+function handleGenderChange() {
+    const genderSelect = document.getElementById('gender');
+    const genderDescription = document.getElementById('genderDescription');
+    genderDescription.style.display = 
+        genderSelect.value === 'self-describe' ? 'block' : 'none';
+}
+
+function handleEthnicityChange() {
+    const ethnicitySelect = document.getElementById('ethnicity');
+    const ethnicityDescription = document.getElementById('ethnicityDescription');
+    ethnicityDescription.style.display = 
+        ethnicitySelect.value === 'other' ? 'block' : 'none';
+}
+
+function handleLocationChange() {
+    const locationSelect = document.getElementById('location');
+    const locationDescription = document.getElementById('locationDescription');
+    locationDescription.style.display = 
+        locationSelect.value === 'other' ? 'block' : 'none';
+}
+
+// Save section data
+function saveCurrentSectionData() {
+    const currentSectionElement = sections[currentSection];
+    const inputs = currentSectionElement.querySelectorAll('input, select, textarea');
+    
+    inputs.forEach(input => {
+        if (input.type === 'checkbox') {
+            if (!surveyData[input.name]) {
+                surveyData[input.name] = [];
+            }
+            if (input.checked) {
+                surveyData[input.name].push(input.value);
+            }
+        } else {
+            surveyData[input.id || input.name] = input.value;
+        }
     });
+}
+
+// Submit survey
+function submitSurvey() {
+    if (validateCurrentSection()) {
+        saveCurrentSectionData();
+        
+        // Convert survey data to JSON
+        const jsonData = JSON.stringify(surveyData, null, 2);
+        
+        // Create CSV data
+        const csvData = convertToCSV(surveyData);
+        
+        // Save data (you can modify this to send to a server)
+        downloadData('survey_response.json', jsonData);
+        downloadData('survey_response.csv', csvData);
+        
+        // Show completion message
+        alert('Thank you for completing the survey!');
+        
+        // Reset survey
+        window.location.reload();
+    }
+}
+
+// Utility function to convert data to CSV
+function convertToCSV(data) {
+    const headers = Object.keys(data);
+    const csvRows = [headers.join(',')];
+    const values = headers.map(header => {
+        const value = data[header];
+        return Array.isArray(value) ? value.join(';') : value;
+    });
+    csvRows.push(values.join(','));
+    return csvRows.join('\n');
+}
+
+// Utility function to download data
+function downloadData(filename, data) {
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+// Initialize event listeners when the document loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners for conditional fields
+    document.getElementById('gender')?.addEventListener('change', handleGenderChange);
+    document.getElementById('ethnicity')?.addEventListener('change', handleEthnicityChange);
+    document.getElementById('location')?.addEventListener('change', handleLocationChange);
+    
+    // Initialize the first section
+    updateSection();
 });
