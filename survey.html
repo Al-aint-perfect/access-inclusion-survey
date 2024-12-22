@@ -132,14 +132,15 @@
         }
     }
 
-    // Text-to-Speech Functionality
-    function toggleTextToSpeech() {
-        const sections = document.querySelectorAll('main, header, footer');
-        sections.forEach(section => {
-            const text = section.innerText;
-            const utterance = new SpeechSynthesisUtterance(text);
-            speechSynthesis.speak(utterance);
-        });
+    // Font Size Adjustment
+    function adjustFontSize(action) {
+        const root = document.documentElement;
+        const currentSize = parseFloat(getComputedStyle(root).getPropertyValue('--font-size'));
+        if (action === 'increase') {
+            root.style.setProperty('--font-size', `${currentSize + 2}px`);
+        } else if (action === 'decrease') {
+            root.style.setProperty('--font-size', `${currentSize - 2}px`);
+        }
     }
 </script>
 </body>
