@@ -1,44 +1,113 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Making Arts and Culture Accessible Survey</title> <!-- Example festival-themed color with appropriate contrast --> <style> /* Example basic reset and high-contrast variables */ :root { --main-bg-color: #ffbfdc; /* Pink background – adjust to ensure enough contrast. */ --text-color: #000000; --button-hover-color: #f582ae; --highlight-color: #ffffff; /* For text highlight or focus outlines */ }
-body {
-  background-color: var(--main-bg-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making Arts and Culture Accessible for Everyone in North East Lincolnshire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Making Arts and Culture Accessible for Everyone in North East Lincolnshire</h1>
+    </header>
 
-header {
-  background-color: #ff80c0; /* Darker pink for banner */
-  padding: 1em;
-  text-align: center;
-}
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
 
-h1 {
-  margin: 0;
-  font-size: 1.8rem;
-}
+        <!-- Introduction Section -->
+        <section id="intro" class="survey-section active">
+            <h2>Welcome to the Survey!</h2>
+            <p>Thank you for taking part in this survey. We want to hear your thoughts and experiences about accessibility and inclusion within the arts and cultural activities offered in North East Lincolnshire. Your feedback will help shape a new training program to improve access and inclusion in our community.</p>
+            <p>This survey should take around 3–5 minutes to complete.</p>
+            <p>Your responses will remain anonymous, and the information you provide will only be used to improve accessibility and inclusion in arts and cultural activities in our area.</p>
+            <div class="button-group">
+                <button onclick="startSurvey()">Take Survey</button>
+            </div>
+        </section>
 
-main {
-  padding: 1em;
-  max-width: 800px;
-  margin: auto;
-}
+        <!-- Section 1: About You -->
+        <section id="section1" class="survey-section">
+            <div class="question">
+                <h3>Q1. Which best describes your primary reason for taking this survey?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="primary_reason" value="personal" required>
+                        I want to share my personal experiences with access needs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="primary_reason" value="supporter">
+                        I support someone with access needs (e.g., family member, carer)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="primary_reason" value="professional">
+                        I am a creative or cultural professional (e.g., venue manager, artist, event organizer)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="primary_reason" value="organization">
+                        I represent an organization or community group
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="primary_reason" value="collaborative">
+                        I am a collaborative artist or practitioner
+                    </label>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="previousSection()">Back</button>
+                <button onclick="nextSection()">Next</button>
+            </div>
+        </section>
 
-.button {
-  background-color: #ff80c0;
-  color: #fff;
-  padding: 0.8em 1.2em;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1em;
-}
+        <!-- Section 2A: For Individuals with Access Needs -->
+        <section id="section2a" class="survey-section">
+            <div class="question">
+                <h3>Q2. What access needs do you have that we should consider?</h3>
+                <textarea required></textarea>
+            </div>
+            <div class="question">
+                <h3>Q3. Can you describe any positive experiences you've had in arts or cultural settings?</h3>
+                <textarea required></textarea>
+            </div>
+            <div class="question">
+                <h3>Q4. What challenges have you encountered in accessing arts and cultural activities?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="challenges" value="physical">
+                        Physical barriers (e.g., lack of ramps, accessible toilets)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="challenges" value="communication">
+                        Communication barriers (e.g., lack of BSL or Makaton support)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="challenges" value="social">
+                        Social barriers (e.g., lack of understanding from staff or peers)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="challenges" value="financial">
+                        Financial barriers (e.g., cost of tickets or transport)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="challenges" value="other">
+                        Other (please specify):
+                        <input type="text" class="other-text">
+                    </label>
+                </div>
+            </div>
+            <div class="question">
+                <h3>Q5. What support or adjustments would make it easier for you to participate?</h3>
+                <textarea required></textarea>
+            </div>
+            <div class="button-group">
+                <button onclick="previousSection()">Back</button>
+                <button onclick="nextSection()">Next</button>
+            </div>
+        </section>
 
-.button:hover, .button:focus {
-  background-color: var(--button-hover-color);
-  outline: 3px solid var(--highlight-color);
-}
+        <!-- Continue with sections 2B through 2E following the same pattern -->
+        <!-- I'll provide these sections in the next message to stay within length limits -->
 
- </script>
- </body> 
+</body>
 </html>
