@@ -13,27 +13,20 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Accessibility Controls -->
-    <div class="accessibility-controls">
-        <button class="accessibility-button" id="contrast-toggle" aria-label="Toggle high contrast">
-            <span class="sr-only">High Contrast</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <circle cx="10" cy="10" r="9" stroke="currentColor" fill="none"/>
-                <path d="M10 1v18" stroke="currentColor"/>
-            </svg>
-        </button>
-        <button class="accessibility-button" id="font-toggle" aria-label="Toggle dyslexic font">
-            <span class="sr-only">Dyslexic Font</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <text x="5" y="15" font-size="14">Aa</text>
-            </svg>
-        </button>
-        <button class="accessibility-button" id="text-size-toggle" aria-label="Toggle text size">
-            <span class="sr-only">Larger Text</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <text x="3" y="15" font-size="16">A+</text>
-            </svg>
-        </button>
-    </div>
+   <div class="accessibility-controls">
+    <button class="accessibility-button" id="contrast-toggle" aria-label="Toggle high contrast">
+        <span class="sr-only">High Contrast</span>
+        HC
+    </button>
+    <button class="accessibility-button" id="font-toggle" aria-label="Toggle dyslexic font">
+        <span class="sr-only">Dyslexic Font</span>
+        Aa
+    </button>
+    <button class="accessibility-button" id="text-size-toggle" aria-label="Toggle text size">
+        <span class="sr-only">Larger Text</span>
+        A+
+    </button>
+</div>
 
     <header>
         <div class="container">
@@ -487,5 +480,156 @@
             }
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all necessary elements
+    const form = document.getElementById('survey-form');
+    const sections = Array.from(document.querySelectorAll('.survey-section'));
+    const startButton = document.getElementById('start-survey');
+    let currentSection = 0;
+
+    // Initialize survey
+    showSection(0); // Show first section
+    updateProgress();
+
+    // Start Survey Button Handler
+    startButton.addEventListener('click', function() {
+        if (document.getElementById('consent').checked) {
+            currentSection = 1; // Move to section 1
+            showSection(currentSection);
+            updateProgress();
+        } else {
+            showFieldError(document.getElementById('consent'));
+        }
+    });
+
+    // Navigation Buttons Handler
+    document.querySelectorAll('[data-direction]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const direction = e.target.dataset.direction;
+            if (direction === 'next' && validateSection(sections[currentSection])) {
+                currentSection++;
+            } else if (direction === 'prev') {
+                currentSection--;
+            }
+            showSection(currentSection);
+            updateProgress();
+        });
+    });
+
+    // Accessibility Controls
+    const contrastToggle = document.getElementById('contrast-toggle');
+    const fontToggle = document.getElementById('font-toggle');
+    const textSizeToggle = document.getElementById('text-size-toggle');
+
+    contrastToggle.addEventListener('click', function() {
+        document.body.classList.toggle('high-contrast');
+        // Save preference
+        localStorage.setItem('high-contrast', document.body.classList.contains('high-contrast'));
+    });
+
+    fontToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dyslexic-font');
+        // Save preference
+        localStorage.setItem('dyslexic-font', document.body.classList.contains('dyslexic-font'));
+    });
+
+    textSizeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('large-text');
+        // Save preference
+        localStorage.setItem('large-text', document.body.classList.contains('large-text'));
+    });
+
+    // Helper Functions
+    function showSection(index) {
+        sections.forEach((section, i) => {
+            section.hidden = i !== index;
+            if (!section.hidden) {
+                section.classList.add('fade-in');
+            }
+        });
+        window.scrollTo(0, 0);
+    }
+
+    function updateProgress() {
+        const progress = ((currentSection + 1) / sections.length) * 100;
+        document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
+    }
+
+    function validateSection(section) {
+        let isValid = true;
+        const requiredFields = section.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                showFieldError(field);
+            } else {
+                clearFieldError(field);
+            }
+        });
+        return isValid;
+    }
+
+    function showFieldError(field) {
+        const errorDiv = document.getElementById(`${field.id}-error`);
+        if (errorDiv) {
+            errorDiv.textContent = 'This field is required';
+        }
+        field.classList.add('input-error');
+    }
+
+    function clearFieldError(field) {
+        const errorDiv = document.getElementById(`${field.id}-error`);
+        if (errorDiv) {
+            errorDiv.textContent = '';
+        }
+        field.classList.remove('input-error');
+    }
+
+    // Add these CSS classes for accessibility features
+    const additionalStyles = document.createElement('style');
+    additionalStyles.textContent = `
+        .high-contrast {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --text-color: #ffffff;
+            --background-color: #000000;
+            --border-color: #ffffff;
+        }
+
+        .dyslexic-font {
+            font-family: 'OpenDyslexic', Arial, sans-serif !important;
+            line-height: 1.8 !important;
+            letter-spacing: 0.12em !important;
+            word-spacing: 0.16em !important;
+        }
+
+        .large-text {
+            font-size: 120% !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    `;
+    document.head.appendChild(additionalStyles);
+
+    // Load saved preferences
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+    }
+    if (localStorage.getItem('dyslexic-font') === 'true') {
+        document.body.classList.add('dyslexic-font');
+    }
+    if (localStorage.getItem('large-text') === 'true') {
+        document.body.classList.add('large-text');
+    }
+});
+</script>
 </body>
 </html>
