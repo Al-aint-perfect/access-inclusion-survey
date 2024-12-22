@@ -22,9 +22,6 @@
         <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
             Dyslexic Mode
         </button>
-        <button onclick="toggleTextToSpeech()" aria-label="Enable text-to-speech">
-            Text-to-Speech
-        </button>
     </div>
 
     <header role="banner">
@@ -110,16 +107,6 @@
                 console.log('Form submitted');
             });
         });
-
-        // Text-to-Speech Functionality
-        function toggleTextToSpeech() {
-            const sections = document.querySelectorAll('.survey-section');
-            sections.forEach(section => {
-                const text = section.innerText;
-                const utterance = new SpeechSynthesisUtterance(text);
-                speechSynthesis.speak(utterance);
-            });
-        }
     </script>
 </body>
 </html>
