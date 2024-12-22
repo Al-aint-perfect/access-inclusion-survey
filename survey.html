@@ -14,14 +14,6 @@
 
     <!-- Accessibility Controls -->
    <div class="accessibility-controls">
-    <button class="accessibility-button" id="contrast-toggle" aria-label="Toggle high contrast">
-        <span class="sr-only">High Contrast</span>
-        HC
-    </button>
-    <button class="accessibility-button" id="font-toggle" aria-label="Toggle dyslexic font">
-        <span class="sr-only">Dyslexic Font</span>
-        Aa
-    </button>
     <button class="accessibility-button" id="text-size-toggle" aria-label="Toggle text size">
         <span class="sr-only">Larger Text</span>
         A+
@@ -522,22 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Accessibility Controls
-    const contrastToggle = document.getElementById('contrast-toggle');
-    const fontToggle = document.getElementById('font-toggle');
-    const textSizeToggle = document.getElementById('text-size-toggle');
-
-    contrastToggle.addEventListener('click', function() {
-        document.body.classList.toggle('high-contrast');
-        // Save preference
-        localStorage.setItem('high-contrast', document.body.classList.contains('high-contrast'));
-    });
-
-    fontToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dyslexic-font');
-        // Save preference
-        localStorage.setItem('dyslexic-font', document.body.classList.contains('dyslexic-font'));
-    });
-
+    const textSizeToggle = document.getElementById('text-size-toggle')
     textSizeToggle.addEventListener('click', function() {
         document.body.classList.toggle('large-text');
         // Save preference
@@ -593,21 +570,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add these CSS classes for accessibility features
     const additionalStyles = document.createElement('style');
     additionalStyles.textContent = `
-        .high-contrast {
-            --primary-color: #000000;
-            --secondary-color: #ffffff;
-            --text-color: #ffffff;
-            --background-color: #000000;
-            --border-color: #ffffff;
-        }
-
-        .dyslexic-font {
-            font-family: 'OpenDyslexic', Arial, sans-serif !important;
-            line-height: 1.8 !important;
-            letter-spacing: 0.12em !important;
-            word-spacing: 0.16em !important;
-        }
-
         .large-text {
             font-size: 120% !important;
         }
@@ -725,32 +687,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Accessibility Controls
-    const contrastToggle = document.getElementById('contrast-toggle');
-    const fontToggle = document.getElementById('font-toggle');
     const textSizeToggle = document.getElementById('text-size-toggle');
-
-    contrastToggle?.addEventListener('click', function() {
-        document.body.classList.toggle('high-contrast');
-        localStorage.setItem('high-contrast', document.body.classList.contains('high-contrast'));
-    });
-
-    fontToggle?.addEventListener('click', function() {
-        document.body.classList.toggle('dyslexic-font');
-        localStorage.setItem('dyslexic-font', document.body.classList.contains('dyslexic-font'));
-    });
-
     textSizeToggle?.addEventListener('click', function() {
         document.body.classList.toggle('large-text');
         localStorage.setItem('large-text', document.body.classList.contains('large-text'));
     });
 
     // Load saved preferences
-    if (localStorage.getItem('high-contrast') === 'true') {
-        document.body.classList.add('high-contrast');
-    }
-    if (localStorage.getItem('dyslexic-font') === 'true') {
-        document.body.classList.add('dyslexic-font');
-    }
     if (localStorage.getItem('large-text') === 'true') {
         document.body.classList.add('large-text');
     }
