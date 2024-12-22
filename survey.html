@@ -3,109 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey - Making Arts and Culture Accessible</title>
+    <title>Making Arts and Culture Accessible Survey - North East Lincolnshire</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Optional: Add OpenDyslexic font -->
+    <link href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Accessibility Controls -->
-    <div class="accessibility-controls" role="region" aria-label="Accessibility controls">
-        <button onclick="toggleHighContrast()" aria-label="Toggle high contrast mode">
-            High Contrast
+    <div class="accessibility-controls">
+        <button class="accessibility-button" id="contrast-toggle" aria-label="Toggle high contrast">
+            <span class="sr-only">High Contrast</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <circle cx="10" cy="10" r="9" stroke="currentColor" fill="none"/>
+                <path d="M10 1v18" stroke="currentColor"/>
+            </svg>
         </button>
-        <div class="font-size-controls">
-            <button onclick="adjustFontSize('decrease')" aria-label="Decrease font size">A-</button>
-            <button onclick="adjustFontSize('increase')" aria-label="Increase font size">A+</button>
-        </div>
-        <button onclick="toggleDyslexicMode()" aria-label="Toggle dyslexic-friendly mode">
-            Dyslexic Mode
+        <button class="accessibility-button" id="font-toggle" aria-label="Toggle dyslexic font">
+            <span class="sr-only">Dyslexic Font</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <text x="5" y="15" font-size="14">Aa</text>
+            </svg>
+        </button>
+        <button class="accessibility-button" id="text-size-toggle" aria-label="Toggle text size">
+            <span class="sr-only">Larger Text</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <text x="3" y="15" font-size="16">A+</text>
+            </svg>
         </button>
     </div>
 
-    <header role="banner">
-        <h1>Making Arts and Culture Accessible</h1>
+    <header>
+        <div class="container">
+            <h1>Making Arts and Culture Accessible for Everyone</h1>
+            <p>North East Lincolnshire Survey</p>
+        </div>
     </header>
 
-    <!-- Progress Bar -->
-    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-        <div class="progress-bar-fill" style="width: 0%"></div>
-    </div>
+    <main id="main-content" class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-bar-fill" style="width: 0%"></div>
+        </div>
 
-    <main id="main-content" role="main">
-        <form id="survey-form" class="fade-in">
+        <form id="survey-form" class="survey-form" novalidate>
+            <!-- Introduction Section -->
+            <section id="intro-section" class="survey-section fade-in">
+                <h2>Welcome to the Survey</h2>
+                <p>Thank you for taking part in this survey. Your feedback will help shape a new training program to improve access and inclusion in our community.</p>
+                <p>This survey should take around 3-5 minutes to complete.</p>
+                <div class="form-group">
+                    <label for="consent">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        I understand that my responses will remain anonymous and will only be used to improve accessibility and inclusion in arts and cultural activities in our area.
+                    </label>
+                    <div class="error" id="consent-error"></div>
+                </div>
+                <button type="button" class="button" id="start-survey">Begin Survey</button>
+            </section>
+
             <!-- Section 1: About You -->
-            <div class="survey-section" data-section="1">
-                <h2>About You</h2>
+            <section id="section-1" class="survey-section" hidden>
+                <h2>Section 1: About You</h2>
                 <div class="form-group">
                     <label for="primary-reason">Which best describes your primary reason for taking this survey?</label>
                     <select id="primary-reason" name="primary-reason" required>
-                        <option value="">Please select...</option>
+                        <option value="">Please select an option</option>
                         <option value="personal">I want to share my personal experiences with access needs</option>
-                        <option value="caregiver">I support someone with access needs</option>
+                        <option value="supporter">I support someone with access needs</option>
                         <option value="professional">I am a creative or cultural professional</option>
                         <option value="organization">I represent an organization or community group</option>
                         <option value="artist">I am a collaborative artist or practitioner</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="error" id="primary-reason-error"></div>
+                </div>
+                <div class="form-group" id="other-reason-group" hidden>
+                    <label for="other-reason">Please specify your reason:</label>
+                    <input type="text" id="other-reason" name="other-reason">
+                </div>
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="next">Next</button>
+                </div>
+            </section>
+
+            <!-- Section 2A: For Individuals with Access Needs -->
+            <section id="section-2a" class="survey-section" hidden>
+                <h2>Section 2A: Your Access Needs</h2>
+                <div class="form-group">
+                    <label for="access-needs">What access needs do you have that we should consider?</label>
+                    <textarea id="access-needs" name="access-needs" rows="4" required></textarea>
+                    <div class="error" id="access-needs-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="positive-experiences">Can you describe any positive experiences you've had in arts or cultural settings?</label>
+                    <textarea id="positive-experiences" name="positive-experiences" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>What challenges have you encountered? (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="challenges" value="physical">
+                            Physical barriers (e.g., lack of ramps, accessible toilets)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="challenges" value="communication">
+                            Communication barriers
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="challenges" value="social">
+                            Social barriers
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="challenges" value="financial">
+                            Financial barriers
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="challenges" value="other">
+                            Other
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="support-needed">What support or adjustments would make it easier for you to participate?</label>
+                    <textarea id="support-needed" name="support-needed" rows="4"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="prev">Previous</button>
+                    <button type="button" class="button" data-direction="next">Next</button>
+                </div>
+            </section>
+
+            <!-- Section 2B: For Caregivers and Family Members -->
+            <section id="section-2b" class="survey-section" hidden>
+                <h2>Section 2B: Supporting Others</h2>
+                <div class="form-group">
+                    <label for="caregiver-challenges">What challenges do you face when supporting someone with access needs?</label>
+                    <textarea id="caregiver-challenges" name="caregiver-challenges" rows="4" required></textarea>
+                    <div class="error" id="caregiver-challenges-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="organization-support">How can organizations better support individuals with access needs?</label>
+                    <textarea id="organization-support" name="organization-support" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you noticed positive changes in accessibility recently?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="positive-changes" value="yes">
+                            Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="positive-changes" value="no">
+                            No
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="prev">Previous</button>
+                    <button type="button" class="button" data-direction="next">Next</button>
+                </div>
+            </section>
+
+            <!-- Section 2C: For Creative and Cultural Professionals -->
+            <section id="section-2c" class="survey-section" hidden>
+                <h2>Section 2C: Professional Experience</h2>
+                <div class="form-group">
+                    <label for="current-steps">What steps have you taken to make your work more accessible?</label>
+                    <textarea id="current-steps" name="current-steps" rows="4" required></textarea>
+                    <div class="error" id="current-steps-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confidence-level">How confident do you feel in improving accessibility?</label>
+                    <div class="range-slider">
+                        <input type="range" id="confidence-level" name="confidence-level" min="1" max="5" step="1">
+                        <div class="range-labels">
+                            <span>Not confident</span>
+                            <span>Very confident</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What skills are essential for improving accessibility? (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="essential-skills" value="understanding-disabilities">
+                            Understanding different disabilities
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="essential-skills" value="communication">
+                            Communication skills (e.g., BSL, Makaton)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="essential-skills" value="programming">
+                            Creating inclusive programming
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="essential-skills" value="engagement">
+                            Engaging with the disability community
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="prev">Previous</button>
+                    <button type="button" class="button" data-direction="next">Next</button>
+                </div>
+            </section>
+
+            <!-- Section 2D: For Organizations -->
+            <section id="section-2d" class="survey-section" hidden>
+                <!-- Similar structure for organization questions -->
+            </section>
+
+            <!-- Section 2E: For Collaborative Artists -->
+            <section id="section-2e" class="survey-section" hidden>
+                <!-- Similar structure for artist questions -->
+            </section>
+
+            <!-- Section 3: General Questions -->
+            <section id="section-3" class="survey-section" hidden>
+                <h2>Section 3: General Questions</h2>
+                <div class="form-group">
+                    <label for="overall-rating">How well do arts and cultural activities meet accessibility needs?</label>
+                    <div class="rating-group">
+                        <input type="radio" id="rating-1" name="overall-rating" value="1">
+                        <label for="rating-1">1 (Very poorly)</label>
+                        <input type="radio" id="rating-2" name="overall-rating" value="2">
+                        <label for="rating-2">2</label>
+                        <input type="radio" id="rating-3" name="overall-rating" value="3">
+                        <label for="rating-3">3</label>
+                        <input type="radio" id="rating-4" name="overall-rating" value="4">
+                        <label for="rating-4">4</label>
+                        <input type="radio" id="rating-5" name="overall-rating" value="5">
+                        <label for="rating-5">5 (Very well)</label>
+                    </div>
+                </div>
+
+                <!-- Additional general questions -->
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="prev">Previous</button>
+                    <button type="button" class="button" data-direction="next">Next</button>
+                </div>
+            </section>
+
+            <!-- Section 4: Demographics -->
+            <section id="section-4" class="survey-section" hidden>
+                <h2>Section 4: About You (Optional)</h2>
+                <p class="note">This information helps us ensure we're hearing from a diverse range of voices.</p>
+
+                <!-- Age Range -->
+                <div class="form-group">
+                    <label for="age-range">Age Range</label>
+                    <select id="age-range" name="age-range">
+                        <option value="">Prefer not to say</option>
+                        <option value="under-18">Under 18</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-34">25-34</option>
+                        <option value="35-44">35-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55-64">55-64</option>
+                        <option value="65-plus">65+</option>
                     </select>
                 </div>
-            </div>
 
-            <div class="form-navigation">
-                <button type="button" onclick="previousSection()" class="button-hover">Previous</button>
-                <button type="button" onclick="nextSection()" class="button-hover">Next</button>
-                <button type="submit" style="display: none;" class="button-hover">Submit</button>
-            </div>
+                <!-- Gender -->
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="">Prefer not to say</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="self-describe">Prefer to self-describe</option>
+                    </select>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="location">Where in North East Lincolnshire are you based?</label>
+                    <select id="location" name="location">
+                        <option value="">Prefer not to say</option>
+                        <option value="grimsby">Grimsby</option>
+                        <option value="cleethorpes">Cleethorpes</option>
+                        <option value="immingham">Immingham</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="prev">Previous</button>
+                    <button type="button" class="button" data-direction="next">Next</button>
+                </div>
+            </section>
+
+            <!-- Section 5: Final Thoughts -->
+            <section id="section-5" class="survey-section" hidden>
+                <h2>Section 5: Final Thoughts</h2>
+                <div class="form-group">
+                    <label for="final-thoughts">Is there anything else you'd like to share about making arts and cultural activities more inclusive?</label>
+                    <textarea id="final-thoughts" name="final-thoughts" rows="4"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button" data-direction="prev">Previous</button>
+                    <button type="submit" class="button submit-button">Submit Survey</button>
+                </div>
+            </section>
         </form>
     </main>
 
-    <footer role="contentinfo">
-        <p>&copy; 2024 Making Arts & Culture Accessible</p>
+    <footer>
+        <div class="container">
+            <p>Thank you for participating in this survey.</p>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // Survey Navigation and Progress Tracking
-        let currentSection = 1;
-        const totalSections = 5;
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('survey-form');
+            const sections = Array.from(document.querySelectorAll('.survey-section'));
+            let currentSection = 0;
 
-        function updateProgress() {
-            const progress = (currentSection / totalSections) * 100;
-            document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
-            document.querySelector('.progress-bar').setAttribute('aria-valuenow', progress);
-        }
-
-        function showSection(sectionNumber) {
-            document.querySelectorAll('.survey-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.querySelector(`[data-section="${sectionNumber}"]`).style.display = 'block';
+            // Initialize survey
+            showSection(currentSection);
             updateProgress();
-        }
 
-        function nextSection() {
-            if (currentSection < totalSections) {
-                currentSection++;
-                showSection(currentSection);
-            }
-        }
-
-        function previousSection() {
-            if (currentSection > 1) {
-                currentSection--;
-                showSection(currentSection);
-            }
-        }
-
-        // Initialize the form
-        document.addEventListener('DOMContentLoaded', () => {
-            showSection(1);
-            
-            // Add form submission handler
-            document.getElementById('survey-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                // Handle form submission
-                console.log('Form submitted');
+            // Handle section navigation
+            document.querySelectorAll('[data-direction]').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const direction = e.target.dataset.direction;
+                    if (direction === 'next' && validateSection(sections[currentSection])) {
+                        currentSection++;
+                    } else if (direction === 'prev') {
+                        currentSection--;
+                    }
+                    showSection(currentSection);
+                    updateProgress();
+                });
             });
+
+            // Handle form submission
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (validateSection(sections[currentSection])) {
+                    try {
+                        const formData = new FormData(form);
+                        const response = await submitSurvey(formData);
+                        if (response.success) {
+                            showThankYou();
+                        } else {
+                            showError('Submission failed. Please try again.');
+                        }
+                    } catch (error) {
+                        showError('An error occurred. Please try again later.');
+                    }
+                }
+            });
+
+            // Handle branching logic
+            document.getElementById('primary-reason').addEventListener('change', (e) => {
+                const value = e.target.value;
+                // Hide all conditional sections
+                document.querySelectorAll('[id^="section-2"]').forEach(section => {
+                    section.hidden = true;
+                });
+                // Show relevant section based on selection
+                if (value) {
+                    const targetSection = document.getElementById(`section-2${getSectionSuffix(value)}`);
+                    if (targetSection) targetSection.hidden = false;
+                }
+            });
+
+            // Accessibility features
+            document.getElementById('contrast-toggle').addEventListener('click', toggleHighContrast);
+            document.getElementById('font-toggle').addEventListener('click', toggleDyslexicFont);
+            document.getElementById('text-size-toggle').addEventListener('click', toggleTextSize);
+
+            // Helper functions
+            function showSection(index) {
+                sections.forEach((section, i) => {
+                    section.hidden = i !== index;
+                });
+                window.scrollTo(0, 0);
+            }
+
+            function updateProgress() {
+                const progress = ((currentSection + 1) / sections.length) * 100;
+                document.querySelector('.progress-bar-fill').style.width = `${progress}%`;
+            }
+
+            function validateSection(section) {
+                let isValid = true;
+                const requiredFields = section.querySelectorAll('[required]');
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        showFieldError(field);
+                    } else {
+                        clearFieldError(field);
+                    }
+                });
+                return isValid;
+            }
+
+            function showFieldError(field) {
+                const errorDiv = document.getElementById(`${field.id}-error`);
+                if (errorDiv) {
+                    errorDiv.textContent = 'This field is required';
+                }
+                field.classList.add('input-error');
+            }
+
+            function clearFieldError(field) {
+                const errorDiv = document.getElementById(`${field.id}-error`);
+                if (errorDiv) {
+                    errorDiv.textContent = '';
+                }
+                field.classList.remove('input-error');
+            }
+
+            async function submitSurvey(formData) {
+                // Replace with your actual submission endpoint
+                const response = await fetch('/submit-survey', {
+                    method: 'POST',
+                    body: formData
+                });
+                return await response.json();
+            }
+
+            function showThankYou() {
+                const thankYouSection = document.createElement('section');
+                thankYouSection.className = 'survey-section fade-in';
+                thankYouSection.innerHTML = `
+                    <h2>Thank You!</h2>
+                    <p>Your response has been recorded. Thank you for helping us improve accessibility in arts and culture.</p>
+                `;
+                form.innerHTML = '';
+                form.appendChild(thankYouSection);
+            }
+
+            function showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error';
+                errorDiv.textContent = message;
+                form.insertBefore(errorDiv, form.firstChild);
+            }
+
+            function getSectionSuffix(value) {
+                const mapping = {
+                    'personal': 'a',
+                    'supporter': 'b',
+                    'professional': 'c',
+                    'organization': 'd',
+                    'artist': 'e'
+                };
+                return mapping[value] || 'a';
+            }
+
+            // Accessibility toggle functions
+            function toggleHighContrast() {
+                document.body.classList.toggle('high-contrast');
+            }
+
+            function toggleDyslexicFont() {
+                document.body.classList.toggle('dyslexic-font');
+            }
+
+            function toggleTextSize() {
+                document.body.classList.toggle('large-text');
+            }
         });
     </script>
 </body>
