@@ -176,75 +176,20 @@ function saveCurrentSectionData() {
     });
 }
 
-// Submit survey
 function submitSurvey() {
-    if (validateCurrentSection()) {
-        saveCurrentSectionData();
-        
-        // Convert survey data to JSON
-        const jsonData = JSON.stringify(surveyData, null, 2);
-        
-        // Create CSV data
-        const csvData = convertToCSV(surveyData);
-        
-        // Save data (you can modify this to send to a server)
-        downloadData('survey_response.json', jsonData);
-        downloadData('survey_response.csv', csvData);
-        
-        // Show completion message
-        alert('Thank you for completing the survey!');
-        
-        // Reset survey
-        window.location.reload();
-    }
+    // Collect all survey data
+    const data = {
+        q1: surveyData.primaryReason || '',
+        q2: document.querySelector('#section2A textarea')?.value || '',
+        q3: document.querySelector('#section2A textarea:nth-of-type(2)')?.value || '',
+        q4: Array.from(document.querySelectorAll('#section2A input[name="challenges"]:checked')).map(input => input.value).join(', ') || '',
+        q5: document.querySelector('#section2A textarea:nth-of-type(3)')?.value || '',
+        // Add similar logic for other sections (2B, 2C, 2D, Section 3, etc.)
+    };
+
+    // Send the data to the Google Apps Script
+    submitSurveyData(data);
 }
-
-// Utility function to convert data to CSV
-function convertToCSV(data) {
-    const headers = Object.keys(data);
-    const csvRows = [headers.join(',')];
-    const values = headers.map(header => {
-        const value = data[header];
-        return Array.isArray(value) ? value.join(';') : value;
-    });
-    csvRows.push(values.join(','));
-    return csvRows.join('\n');
-}
-
-// Utility function to download data
-function downloadData(filename, data) {
-    const blob = new Blob([data], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    window.URL.revokeObjectURL(url);
-}
-
-// Initialize event listeners when the document loads
-document.addEventListener('DOMContentLoaded', () => {
-    // Add event listeners for conditional fields
-    document.getElementById('gender')?.addEventListener('change', handleGenderChange);
-    document.getElementById('ethnicity')?.addEventListener('change', handleEthnicityChange);
-    document.getElementById('location')?.addEventListener('change', handleLocationChange);
-    document.querySelectorAll('input[name="supporterChallenges"][value="other"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-    document.getElementById('otherSupporterChallenges').style.display = this.checked ? 'block' : 'none';
-    });
-});
-
-document.querySelectorAll('input[name="professionalChallenges"][value="other"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        document.getElementById('otherProfessionalChallenges').style.display = this.checked ? 'block' : 'none';
-    });
-});
-
-document.querySelectorAll('input[name="organizationChallenges"][value="other"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        document.getElementById('otherOrganizationChallenges').style.display = this.checked ? 'block' : 'none';
-    });
-});
     // Initialize the first section
     updateSection();
 });
