@@ -1,11 +1,20 @@
 let currentSection = 0;
-const sections = document.querySelectorAll('.survey-section');
-let surveyData = {};
+const sections = document.getElementsByClassName('survey-section');
+const surveyData = {};
 
 // Initialize the survey
 function startSurvey() {
-    currentSection = 1;
-    updateSection();
+    // Hide the welcome section
+    document.getElementById('welcome').classList.remove('active');
+    
+    // Show the first section
+    document.getElementById('section1').classList.add('active');
+    
+    // Initialize the progress bar
+    document.getElementById('progressBar').style.width = '0%';
+    
+    // Reset currentSection to 0
+    currentSection = 0;
 }
 
 // Handle navigation between sections
