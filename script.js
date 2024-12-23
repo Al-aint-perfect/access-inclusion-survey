@@ -175,6 +175,26 @@ function saveCurrentSectionData() {
         }
     });
 }
+function submitSurveyData(data) {
+    const scriptURL = https://script.google.com/macros/s/AKfycbyDB7Zx-hYjn-GiGveXjuQ8jD5OH82n7lDyCpjszo9y1Q7nrWwb-Mh7tzNB5svJMV8ggQ/exec; // Replace with your Google Apps Script URL
+
+    fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+        console.log('Success:', json);
+        alert('Your responses have been submitted successfully!');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('There was an error submitting your responses. Please try again.');
+    });
+}
 
 function submitSurvey() {
     // Collect all survey data
