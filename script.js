@@ -18,25 +18,24 @@ function handleSection1() {
         alert('Please select an option to continue.');
         return;
     }
-
     let nextSection;
     switch (selected.value) {
         case 'personal':
-            nextSection = 'section2A';
+            nextSection('section2A');
             break;
         case 'supporter':
-            nextSection = 'section2B';
+            nextSection('section2B');
             break;
         case 'professional':
-            nextSection = 'section2C';
+            nextSection('section2C');
             break;
         case 'organization':
-            nextSection = 'section2D';
+            nextSection('section2D');
             break;
+        default:
+            console.error('Unexpected selection value');
     }
-    nextSection(nextSection);
 }
-
 // Navigation functions
 function nextSection(sectionId) {
     if (!validateCurrentSection()) {
