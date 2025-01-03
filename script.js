@@ -18,7 +18,6 @@ function handleSection1() {
         alert('Please select an option to continue.');
         return;
     }
-    let nextSection;
     switch (selected.value) {
         case 'personal':
             nextSection('section2A');
